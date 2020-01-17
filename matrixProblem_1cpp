@@ -2,10 +2,7 @@
 #include <iomanip>
 using namespace std;
 
-const int M =5;
-const int N= 5;
-const int K = 25;
-void arrayToSpiralMatrix(int arr[], int mat[M][N])
+void arrayToSpiralMatrix(int arr[], int *mat,int K,int M,int N)
 {
 	int top = 0, bottom = M - 1;
 	int left = 0, right = N - 1;
@@ -16,48 +13,48 @@ void arrayToSpiralMatrix(int arr[], int mat[M][N])
 	{
 		if (left > right)
 			break;
-		
+
 		for (int i = left; i <= right; i++)
-			mat[top][i] = arr[index++];
+			*(mat+top*N+i) = arr[index++];
 		top++;
 
 		if (top > bottom)
 			break;
-		
+
 		for (int i = top; i <= bottom; i++)
-			mat[i][right] = arr[index++];
+			*(mat+i*N+right) = arr[index++];
 		right--;
 
 		if (left > right)
 			break;
-		
+
 		for (int i = right; i >= left; i--)
-			mat[bottom][i] = arr[index++];
+			*(mat+bottom*N+i) = arr[index++];
 		bottom--;
 
 		if (top > bottom)
 			break;
-		
+
 		for (int i = bottom; i >= top; i--)
-			mat[i][left] = arr[index++];
+			*(mat+i*N+left) = arr[index++];
 		left++;
 	}
 }
 
 int main()
 {
-	int arr[K] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+	int arr[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
 					16, 17, 18, 19, 20, 21, 22, 23, 24, 25 };
-	int mat[M][N];
+	int mat[5][5];
 
-	arrayToSpiralMatrix(arr, mat);
+	arrayToSpiralMatrix(arr, *mat,25,5,5);
 
-	for (int i = 0; i < M; i++)
+	for (auto &row:mat)
 	{
-		for (int j = 0; j < N; j++)
-			cout << setw(3) << mat[i][j];
+		for (auto &col:row)
+			cout << setw(3) << col;
 		cout << '\n';
 	}
-
+	cin.get();
 	return 0;
 }
