@@ -1,10 +1,7 @@
 #include <iostream>
 using namespace std;
 
-const int M = 5;
-const int N = 5;
-
-void printMatrixInSpiralOrder(int mat[M][N])
+void printMatrixInSpiralOrder(int *mat,int M,int N)
 {
 	int top = 0, bottom = M - 1;
 	int left = 0, right = N - 1;
@@ -14,32 +11,32 @@ void printMatrixInSpiralOrder(int mat[M][N])
 		if (left > right)
 			break;
 		for (int i = left; i <= right; i++)
-			cout << mat[top][i] << " ";
+			cout << *(mat+top*N+i) << " ";
 		top++;
 
 		if (top > bottom)
 			break;
 		for (int i = top; i <= bottom; i++)
-			cout << mat[i][right] << " ";
+			cout <<*(mat+i*N+right) << " ";
 		right--;
 
 		if (left > right)
 			break;
 		for (int i = right; i >= left; i--)
-			cout << mat[bottom][i] << " ";
+			cout <<*( mat+bottom*N+i) << " ";
 		bottom--;
 
 		if (top > bottom)
 			break;
 		for (int i = bottom; i >= top; i--)
-			cout << mat[i][left] << " ";
+			cout << *(mat+i*N+left) << " ";
 		left++;
 	}
 }
 
 int main()
 {
-	int mat[M][N] =
+	int mat[5][5] =
 	{
 		{ 1,  2,  3,  4, 5},
 		{16, 17, 18, 19, 6},
@@ -48,7 +45,7 @@ int main()
 		{13, 12, 11, 10, 9}
 	};
 
-	printMatrixInSpiralOrder(mat);
-
+	printMatrixInSpiralOrder(*mat,5,5);
+	system("PAUSE");
 	return 0;
 }
